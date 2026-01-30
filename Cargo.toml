@@ -1,8 +1,8 @@
 [package]
-name = "skyline_rs_template"
+name = "ssbu_translated_status_scripts"
 version = "0.1.0"
-authors = ["jam1garner <jam1.mcleod@hotmail.com>"]
-edition = "2018"
+authors = ["phazoganon"]
+edition = "2021"
 
 [package.metadata.skyline]
 titleid = "01006A800016E000"
