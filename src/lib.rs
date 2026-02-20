@@ -1,30 +1,52 @@
 #![feature(proc_macro_hygiene)]
 
-use skyline::{hook, install_hook};
+use {
+    attack_func::*,
+    extern_func::*,
+    globals::*,
+    smash::{
+        app::{
+            ArticleOperationTarget,
+            BattleObjectModuleAccessor,
+            FighterUtil,
+            GroundCliffCheckKind,
+            GroundCorrectKind,
+            lua_bind::*,
+            MotionNodeRotateCompose,
+            MotionNodeRotateOrder,
+            SituationKind,
+            sv_battle_object,
+            sv_math,
+            sv_module_access
+        },
+        hash40,
+        lib::{
+            L2CValue,
+            lua_const::*,
+        },
+        lua2cpp::*,
+        phx::*,
+    },
+    smash_script::*,
+    smashline::*,
+};
 
-extern "C" fn test() -> u32 {
-    2
-}
+mod attack_func;
+mod bayonetta;
+mod extern_func;
+mod globals;
+mod mario;
+mod mario_fireball;
+mod mario_hugeflame;
+mod mario_pump;
+mod mario_pumpwater;
 
-#[hook(replace = test)]
-fn test_replacement() -> u32 {
-
-    let original_test = original!();
-
-    let val = original_test();
-
-    println!("[override] original value: {}", val); // 2
-
-    val + 1
-}
-
-#[skyline::main(name = "skyline_rs_template")]
+#[skyline::main(name = "ssbu_translated_status_scripts")]
 pub fn main() {
-    println!("Hello from Skyline Rust Plugin!");
-
-    install_hook!(test_replacement);
-
-    let x = test();
-
-    println!("[main] test returned: {}", x); // 3
+    bayonetta::install();
+    mario::install();
+    mario_fireball::install();
+    mario_hugeflame::install();
+    mario_pump::install();
+    mario_pumpwater::install();
 }
